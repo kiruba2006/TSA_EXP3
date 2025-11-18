@@ -1,5 +1,5 @@
 # Ex.No: 03   COMPUTE THE AUTO FUNCTION(ACF)
-Date: 
+Date: 02/09/2025
 
 ### AIM:
 To Compute the AutoCorrelation Function (ACF) of the data for the first 35 lags to determine the model
@@ -11,33 +11,39 @@ type to fit the data.
 4. Store the results in an array
 5. Represent the result in graphical representation as given below.
 ### PROGRAM:
-import matplotlib.pyplot as plt
-
+```
 import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from statsmodels.graphics.tsaplots import plot_acf
 
-data = [3, 16, 156, 47, 246, 176, 233, 140, 130,
-101, 166, 201, 200, 116, 118, 247,
-209, 52, 153, 232, 128, 27, 192, 168, 208,
-187, 228, 86, 30, 151, 18, 254,
-76, 112, 67, 244, 179, 150, 89, 49, 83, 147, 90,
-33, 6, 158, 80, 35, 186, 127]
+# Load the dataset
+file_path = ("C:\\Users\\admin\\Downloads\\Netflix_stock_data.csv")  # Replace with your file path
+data = pd.read_csv(file_path)
 
-lags = range(35)
+# Convert 'Date' column to datetime format
+data['Date'] = pd.to_datetime(data['Date'])
+data.set_index('Date', inplace=True)
 
+# Select the column for ACF (Close price used for time series)
+close_price = data['Close']
 
-#Pre-allocate autocorrelation table
+# Compute and plot ACF for the first 35 lags
+plt.figure(figsize=(10, 6))
+plot_acf(close_price, lags=35, alpha=0.05)   # 35 lags + confidence interval
+plt.title('AutoCorrelation Function (ACF) for Netflix Stock Close Price')
+plt.xlabel('Lags')
+plt.ylabel('ACF Value')
+plt.grid(True)
+plt.show()
 
-#Mean
+```
 
-#Variance
-
-#Normalized data
-
-#Go through lag components one-by-one
-
-#display the graph
 
 ### OUTPUT:
+
+<img width="951" height="612" alt="image" src="https://github.com/user-attachments/assets/b3a1ec49-b9a5-4ead-bfd1-297e94150eb7" />
+
 
 ### RESULT:
         Thus we have successfully implemented the auto correlation function in python.
